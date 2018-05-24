@@ -1,0 +1,14 @@
+title: Welcome to PyVideo Lektor!
+---
+body:
+
+This is a basic website to review and edit PyVideo.org data in a Lektor environment.
+
+Related links:
+
+* PyVideo.org: http://pyvideo.org/
+* PyVideo Lektor: https://github.com/Daniel-at-github/pyvideo_lektor
+* PyVideo data: https://github.com/pyvideo/data
+* PyVideo static site generator (Pelican): https://github.com/pyvideo/pyvideo
+
+To navigate this web, while constructing, use the builtin editor.

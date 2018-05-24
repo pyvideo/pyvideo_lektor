@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% block title %}{{ this.title }}{% endblock %}
+{% block body %}
+
+
+    {% set html_calendar = '&#x1f4c5;' %}
+    {% set html_speaking_head = '&#x1f5e3;' %}
+    {% set html_label = '&#x1f3f4;' %}
+    {% set html_link = '&#x1f517;' %}
+    {% set html_film_frame = '&#x1f39e;' %}
+    {% set html_tongue = '&#x1f445;' %}
+    {% set html_globe_with_meridians = '&#x1f445;' %}
+
+    <span class="title">
+        <h3>{{ this.title }}</h3>
+    </span>
+
+    <span class="recorded">
+        {{ html_calendar | safe }} {{ this.recorded }}
+    </span>
+
+    <span class="language">
+        {% if this.language -%}
+                {{ html_tongue | safe }} {{ this.language }}
+        {%- endif %}
+    </span>
+
+    <span class="speakers">
+        {% if this.speakers -%}
+            <br>
+            <b>By</b>
+              {% for item in this.speakers.blocks -%}
+                {{ html_speaking_head | safe }} {{ item }}
+              {% endfor %}
+        {%- endif %}
+    </span>
+
+    <span class="tags">
+        {% if this.tags -%}
+            <br>
+            <b> Tags</b>
+              {% for item in this.tags.blocks -%}
+                {{ html_label | safe }} {{ item }}
+              {% endfor %}
+        {%- endif %}
+    </span>
+
+    <span class="related_urls">
+        {%- if this.related_urls -%}
+            <br>
+            <b>Related urls:</b>:  {% for item in this.related_urls.blocks -%}
+                    {{ html_link | safe }} {{ item }}
+                {% endfor %}
+        {%- endif -%}
+        </br>
+    </span>
+
+    <span class="videos">
+        {%- if this.videos -%}
+            <b>Videos:</b>:  {% for item in this.videos.blocks -%}
+                    {{ html_film_frame | safe }} {{ item }}
+                {% endfor %}
+        {%- endif -%}
+    </span>
+
+    <span class="description">
+        <h4>Description</h4>
+        <span class="review" style="font-size:16px;padding:2px; text-align: justify;text-justify: inter-word;">
+        {{ this.description }}
+        </span>
+        </br>
+    </span>
+
+    <span class="thumbnail_url">
+        <img src="{{ this.thumbnail_url }}" alt="" style="height:200px">
+    </span>
+
+{% endblock %}
