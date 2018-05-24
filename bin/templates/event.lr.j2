@@ -1,0 +1,10 @@
+{%- for field, value in data.items() -%}
+{{ field }}: {{ value }}
+---
+{% endfor -%}
+
+_discoverable: yes
+---
+_template: event.html
+---
+_model: event

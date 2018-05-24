@@ -1,0 +1,37 @@
+{%- for field, value in string_data.items() -%}
+{{ field }}: {{ value }}
+---
+{% endfor -%}
+
+
+
+
+{%- for field, value in flow_text_data.items() -%}
+{{ field }}:
+{%-      for item in value %}
+#### text-block ####
+text: {{ item }}
+{%-      endfor %}
+---
+{% endfor -%}
+
+
+
+
+{%- for field, value in flow_url_data.items() -%}
+{{ field }}:
+{%-      for item in value %}
+#### url-block ####
+text: {{ item.text }}
+----
+url: {{ item.url }}
+{%-     endfor %}
+---
+{% endfor -%}
+
+_discoverable: yes
+---
+_template: video.html
+---
+_model: video
+---

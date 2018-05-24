@@ -7,7 +7,7 @@ Review and edit PyVideo.org data with a local copy in a lektor web instance
 Functionalities:
 
 * Conversion:
-  * [ ] Convert pyvideo data to lektor format
+  * [x] Convert pyvideo data to lektor format
   * [ ] Convert lektor format to pyvideo data
 * Editor:
   * [ ] Edit events
@@ -33,6 +33,8 @@ git clone git@github.com:$MY_GITHUB_USER/pyvideo_lektor.git
 git clone git@github.com:$MY_GITHUB_USER/data.git pyvideo_data # More clear name in local, renamed as pyvideo_data
 
 # Converting pyvideo_data to lektor
+#   only two events as example.
 cd ~/git/pyvideo_lektor/bin
 pipenv shell
+./pyvideo_convert.py ~/git/pyvideo_data ~/git/pyvideo_lektor/ --events pyday-galicia-2017,pycon-us-2018 -v --pyvideo_to_lektor
 ~~~
