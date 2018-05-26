@@ -1,0 +1,95 @@
+{% macro render_video(video, from_index=false) %}
+  <div class="video">
+  {% set html_calendar = '&#x1f4c5;' %}
+  {% set html_speaking_head = '&#x1f5e3;' %}
+  {% set html_label = '&#x1f3f4;' %}
+  {% set html_link = '&#x1f517;' %}
+  {% set html_film_frame = '&#x1f39e;' %}
+  {% set html_tongue = '&#x1f445;' %}
+  {% set html_globe_with_meridians = '&#x1f445;' %}
+
+  {% if from_index %}
+    {# ======================= Event page view ======================= #}
+    <img class="thumbnail" src="{{ video.thumbnail_url }}" alt="">
+
+    <h2><a href="{{ video|url }}">{{ video.title }}</a></h2>
+    <span class="recorded">
+        {{ html_calendar | safe }} {{ video.recorded }}
+    </span>
+    <span class="speakers">
+        {% if video.speakers -%}
+            <br>
+            <b>By</b>
+              {% for item in video.speakers.blocks -%}
+                {{ html_speaking_head | safe }} {{ item }}
+              {% endfor %}
+        {%- endif %}
+    </span>
+
+  {% else %}
+    {# ======================= Video page view ======================= #}
+    <img class="thumbnail" src="{{ video.thumbnail_url }}" alt="">
+
+    <span class="title">
+        <h3>{{ video.title }}</h3>
+    </span>
+
+    <span class="recorded">
+        {{ html_calendar | safe }} {{ video.recorded }}
+    </span>
+
+    <span class="language">
+        {% if video.language -%}
+                {{ html_tongue | safe }} {{ video.language }}
+        {%- endif %}
+    </span>
+
+    <span class="speakers">
+        {% if video.speakers -%}
+            <br>
+            <b>By</b>
+              {% for item in video.speakers.blocks -%}
+                {{ html_speaking_head | safe }} {{ item }}
+              {% endfor %}
+        {%- endif %}
+    </span>
+
+    <span class="tags">
+        {% if video.tags -%}
+            <br>
+            <b> Tags</b>
+              {% for item in video.tags.blocks -%}
+                {{ html_label | safe }} {{ item }}
+              {% endfor %}
+        {%- endif %}
+    </span>
+
+    <span class="related_urls">
+        {%- if video.related_urls -%}
+            <br>
+            <b>Related urls:</b>:  {% for item in video.related_urls.blocks -%}
+                    {{ html_link | safe }} {{ item }}
+                {% endfor %}
+        {%- endif -%}
+        </br>
+    </span>
+
+    <span class="videos">
+        {%- if video.videos -%}
+            <b>Videos:</b>:  {% for item in video.videos.blocks -%}
+                    {{ html_film_frame | safe }} {{ item }}
+                {% endfor %}
+        {%- endif -%}
+    </span>
+
+    <span class="description">
+        <h4>Description</h4>
+        <span class="review" style="font-size:16px;padding:2px; text-align: justify;text-justify: inter-word;">
+        {{ video.description }}
+        </span>
+        </br>
+    </span>
+
+  {% endif %}
+  </div>
+{% endmacro %}

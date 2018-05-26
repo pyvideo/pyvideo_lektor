@@ -45,3 +45,12 @@ div.page {
   display:inline-block;
   transform: rotate(180deg);
 }
+
+.accesskey {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.thumbnail {
+    height: 200px
+}

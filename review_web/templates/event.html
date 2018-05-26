@@ -1,4 +1,7 @@
 {% extends "layout.html" %}
+{% from "macros/video.html" import render_video %}
+{% from "macros/pagination.html" import render_pagination %}
+
 {% block title %}{{ this.title }}{% endblock %}
 {% block body %}
   <h4>{{ this.title }}</h4>
@@ -7,5 +10,13 @@
   {% endif %}
   {% if this.others %}
       <p><b>other</b>{{ this.others }}</p>
+  {% endif %}
+
+  {% for child in this.pagination.items %}
+    {{ render_video(child, from_index=true) }}
+  {% endfor %}
+
+  {% if this.pagination.pages > 1 %}
+    {{ render_pagination(this.pagination) }}
   {% endif %}
 {% endblock %}

@@ -14,7 +14,7 @@ Functionalities:
   * [x] Edit videos
   * [x] Navigate between events and videos in edit mode
   * [ ] Navigate between events in view mode
-  * [ ] Navigate between videos in view mode
+  * [x] Navigate between videos in view mode
   * [ ] Navigate between events and videos in view mode
 
 ## Usage
@@ -46,6 +46,7 @@ lektor serve
 # Open http://127.0.0.1:5000/ in a web browser
 ~~~
 To navigate this web, while constructing, use the builtin editor: http://127.0.0.1:5000/admin/root:events/preview
+To navigate between videos in view mode use the [acces keys](https://www.w3schools.com/tags/att_accesskey.asp) P (Previous) N (Next)
 
 Convert lektor to pyvideo data (Work in progress)
 ~~~ bash
