@@ -128,7 +128,7 @@ class PyvideoRepo(Repository):
     def video_save_data(self, event_path, video):
         """Data needed to save a video (path, text)"""
         event_dir = event_path.parents[0]
-        path = event_dir / 'videos' / video.name + '.json'
+        path = event_dir / 'videos' / '{}.json'.format(video.name)
         text = video.to_json()
         logging.debug('> \t %s', path)
         return path, text
