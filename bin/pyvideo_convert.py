@@ -6,9 +6,12 @@ import argparse
 import json
 import logging
 import pathlib
+import re
 
 import jinja2
 import pyaml
+import better_exceptions  # export BETTER_EXCEPTIONS=1
+better_exceptions.MAX_LENGTH = None
 
 JSON_FORMAT_KWARGS = {
     'indent': 2,
@@ -295,8 +298,54 @@ class LektorContent(Repository):
     @staticmethod
     def get_lektor(file_path):
         """Get data of lektor file"""
-        file_path.read_text()
-        # TODO: convert lektor data to pyvideo structure
+        text = file_path.read_text()
+
+        def _to_dict(text, level=3):
+            pattern = r'(?:\r?\n|\A){}\r?\n\b'.format('-' * level)
+            chunks = re.split(pattern, text)
+            result = dict([
+                re.split(r'\s*:\s*', chunk, maxsplit=1)
+                for chunk
+                in chunks
+                if not chunk.startswith('_')])
+            return result
+
+        def _fix_data(lektor_data):
+            # ~ if 'duration' in lektor_data and isinstance(lektor_data['duration'], str):
+            if 'duration' in lektor_data and lektor_data['duration']:
+                lektor_data['duration'] = int(lektor_data['duration'])
+            if 'related_urls' in lektor_data:
+                for url_data in lektor_data['related_urls']:
+                    url_data['label'] = url_data['text']
+                    del url_data['text']
+            if 'tags' in lektor_data:
+                if lektor_data['tags'] == "":
+                    lektor_data['tags'] = []
+            # ~ if 'copyright_text' in lektor_data:
+                # ~ if lektor_data['copyright_text'] == "None":
+                    # ~ lektor_data['copyright_text'] = None
+            if 'videos' in lektor_data:
+                for url_data in lektor_data['videos']:
+                    url_data['type'] = url_data['text']
+                    del url_data['text']
+            return lektor_data
+
+        main_data = _to_dict(text)
+        for k, v in main_data.items():
+            if v.startswith('####'):
+                pattern = r'(?:\r?\n|\A){}\r?\n\b'.format('#### .* ####')
+                chunks = re.split(pattern, v)[1:]
+                if '----' in v:  # FIX edge case text with dashes
+                    main_data[k] = [_to_dict(chunk, level=4)
+                                    for chunk in chunks]
+                else:
+                    main_data[k] = [re.split(r'\s*:\s*', chunk, maxsplit=1)[1]
+                                    for chunk in chunks]
+            elif v == 'None':
+                main_data[k] = None
+
+        # ~ import ipdb; ipdb.set_trace()
+        result = _fix_data(main_data)
         return result
 
 
