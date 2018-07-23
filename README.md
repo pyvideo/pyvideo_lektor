@@ -29,8 +29,8 @@ curl -sf https://www.getlektor.com/install.sh | sh
 # Cloning the repos
 MY_GITHUB_USER=Daniel-at-github
 cd ~/git/
-git clone git@github.com/$MY_GITHUB_USER/pyvideo_lektor.git
-git clone git@github.com/$MY_GITHUB_USER/data.git pyvideo_data # More clear name in local, renamed as pyvideo_data
+git clone "git@github.com:$MY_GITHUB_USER/pyvideo_lektor.git"
+git clone "git@github.com:$MY_GITHUB_USER/data.git" pyvideo_data # More clear name in local, renamed as pyvideo_data
 
 # Converting pyvideo_data to lektor
 #   only two events as example.
@@ -52,5 +52,5 @@ Convert lektor to pyvideo data (Work in progress)
 ~~~ bash
 cd ~/git/pyvideo_lektor/bin
 pipenv shell
-./pyvideo_convert.py ~/git/pyvideo_data ~/git/pyvideo_lektor/ -v --lektor_to_pyvideo
+./pyvideo_convert.py ~/git/pyvideo_data ~/git/pyvideo_lektor/review_web/ -v --lektor_to_pyvideo
 ~~~
