@@ -104,7 +104,9 @@ class PyvideoRepo(Repository):
         """Read the list of all disk events (name and path)"""
         event_paths = self.path.glob('*/category.json')
         return [(event_path.parts[-2], event_path.parents[0])
-                for event_path in event_paths]
+                for event_path in event_paths
+                # Exclude .schemas/category.json
+                if not event_path.parts[-2].startswith('.')]
 
     def read_event(self, event_name, event_path):
         """Read event from disk"""
@@ -311,23 +313,29 @@ class LektorContent(Repository):
             return result
 
         def _fix_data(lektor_data):
-            # ~ if 'duration' in lektor_data and isinstance(lektor_data['duration'], str):
-            if 'duration' in lektor_data and lektor_data['duration']:
+            if ('duration' in lektor_data
+                    and lektor_data['duration']
+                    and isinstance(lektor_data['duration'], str)):
                 lektor_data['duration'] = int(lektor_data['duration'])
             if 'related_urls' in lektor_data:
                 for url_data in lektor_data['related_urls']:
-                    url_data['label'] = url_data['text']
-                    del url_data['text']
-            if 'tags' in lektor_data:
-                if lektor_data['tags'] == "":
-                    lektor_data['tags'] = []
-            # ~ if 'copyright_text' in lektor_data:
-                # ~ if lektor_data['copyright_text'] == "None":
-                    # ~ lektor_data['copyright_text'] = None
+                    if url_data['text'] == '':
+                        url_data = url_data['url']
+                    else:
+                        url_data['label'] = url_data['text']
+                        del url_data['text']
+            for list_var in ['tags', 'speakers']:
+                if list_var in lektor_data:
+                    if lektor_data[list_var] == "":
+                        lektor_data[list_var] = []
             if 'videos' in lektor_data:
                 for url_data in lektor_data['videos']:
                     url_data['type'] = url_data['text']
                     del url_data['text']
+            if 'others' in lektor_data:
+                other_data = pyaml.yaml.safe_load(lektor_data['others'])
+                lektor_data.update(other_data)
+                del lektor_data['others']
             return lektor_data
 
         main_data = _to_dict(text)
@@ -344,7 +352,6 @@ class LektorContent(Repository):
             elif v == 'None':
                 main_data[k] = None
 
-        # ~ import ipdb; ipdb.set_trace()
         result = _fix_data(main_data)
         return result
 
