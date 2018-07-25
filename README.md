@@ -53,4 +53,6 @@ Convert lektor to pyvideo data (Work in progress)
 cd ~/git/pyvideo_lektor/bin
 pipenv shell
 ./pyvideo_convert.py ~/git/pyvideo_data ~/git/pyvideo_lektor/review_web/ -v --lektor_to_pyvideo
+# Optionally, clean pyvideo lektor formated data
+rm -fr ~/git/pyvideo_lektor/review_web/content/events/!(*.lr)
 ~~~
