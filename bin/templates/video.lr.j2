@@ -22,9 +22,24 @@ text: {{ item }}
 {{ field }}:
 {%-      for item in value %}
 #### url-block ####
-text: {{ item.text }}
+label: {{ item.label }}
 ----
 url: {{ item.url }}
+{%-     endfor %}
+---
+{% endfor -%}
+
+
+
+{%- for field, value in flow_video_data.items() -%}
+{{ field }}:
+{%-      for item in value %}
+#### video-block ####
+type: {{ item.type }}
+----
+url: {{ item.url }}
+----
+length: {{ item.length }}
 {%-     endfor %}
 ---
 {% endfor -%}
