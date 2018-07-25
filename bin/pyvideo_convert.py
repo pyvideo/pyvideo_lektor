@@ -210,7 +210,8 @@ class Video:
     def to_lektor(self):
         """Return video data in lektor format"""
 
-        string_data, flow_text_data, flow_url_data, other_data = {}, {}, {}, {}
+        (string_data, flow_text_data, flow_url_data, flow_video_data,
+            other_data) = ({}, {}, {}, {}, {})
         for field, value in self.data.items():
             if field in ['description', 'thumbnail_url', 'title', 'recorded',
                          'copyright_text', 'duration', 'language']:
@@ -218,24 +219,21 @@ class Video:
                 # TODO: description is rst must replace "^---" for "----"
             elif field in ['speakers', 'tags']:
                 flow_text_data[field] = value
-            elif field in ['videos', 'related_urls']:
+            elif field == 'videos':
+                for item in value:
+                    if 'length' not in item:
+                        item['length'] = None
+                flow_video_data['videos'] = value
+            elif field == 'related_urls':
                 flow_url_data[field] = []
                 for item in value:
                     if isinstance(item, str):
                         flow_url_data[field].append({
                             'url': item,
-                            'text': '',
+                            'label': '',
                             })
-                    elif field == 'videos':
-                        flow_url_data[field].append({
-                            'url': item['url'],
-                            'text': item['type'],
-                            })
-                    elif field == 'related_urls':
-                        flow_url_data[field].append({
-                            'url': item['url'],
-                            'text': item['label'],
-                            })
+                    else:
+                        flow_url_data[field].append(item)
             else:
                 other_data[field] = value
         if other_data:
@@ -250,6 +248,7 @@ class Video:
             string_data=string_data,
             flow_text_data=flow_text_data,
             flow_url_data=flow_url_data,
+            flow_video_data=flow_video_data,
             )
         return result
 
@@ -313,25 +312,35 @@ class LektorContent(Repository):
             return result
 
         def _fix_data(lektor_data):
-            if ('duration' in lektor_data
-                    and lektor_data['duration']
-                    and isinstance(lektor_data['duration'], str)):
-                lektor_data['duration'] = int(lektor_data['duration'])
-            if 'related_urls' in lektor_data:
-                for url_data in lektor_data['related_urls']:
-                    if url_data['text'] == '':
-                        url_data = url_data['url']
+            def _to_int(text):
+                if isinstance(text, str):
+                    if text in ['None', '']:
+                        return None
                     else:
-                        url_data['label'] = url_data['text']
-                        del url_data['text']
-            for list_var in ['tags', 'speakers']:
+                        return int(text)
+                else:
+                    return text
+
+            if 'duration' in lektor_data and lektor_data['duration']:
+                lektor_data['duration'] = _to_int(lektor_data['duration'])
+            if 'videos' in lektor_data and lektor_data['videos']:
+                for video in lektor_data['videos']:
+                    if 'length' in video and video['length']:
+                        if video['length'] == 'None':
+                            del video['length']
+                        else:
+                            video['length'] = _to_int(video['length'])
+            if 'related_urls' in lektor_data:
+                for num, url_data in enumerate(lektor_data['related_urls']):
+                    if url_data['label'] == '':
+                        lektor_data['related_urls'][num] = url_data['url']
+                    # ~ else:
+                    # ~     url_data['label'] = url_data['text']
+                    # ~     del url_data['text']
+            for list_var in ['tags', 'speakers', 'related_urls']:
                 if list_var in lektor_data:
                     if lektor_data[list_var] == "":
                         lektor_data[list_var] = []
-            if 'videos' in lektor_data:
-                for url_data in lektor_data['videos']:
-                    url_data['type'] = url_data['text']
-                    del url_data['text']
             if 'others' in lektor_data:
                 other_data = pyaml.yaml.safe_load(lektor_data['others'])
                 lektor_data.update(other_data)
