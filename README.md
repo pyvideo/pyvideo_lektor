@@ -13,9 +13,11 @@ Functionalities:
   * [x] Edit events
   * [x] Edit videos
   * [x] Navigate between events and videos in edit mode
-  * [ ] Navigate between events in view mode
+  * [x] List of events in view mode
   * [x] Navigate between videos in view mode
-  * [ ] Navigate between events and videos in view mode
+  * [x] Navigate from events to videos in view mode
+  * [ ] Fix dash titles bug
+  * [ ] Enhance the web appearance. (Not mandatory)
 
 ## Usage
 
