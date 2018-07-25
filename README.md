@@ -8,7 +8,7 @@ Functionalities:
 
 * Conversion:
   * [x] Convert pyvideo data to lektor format
-  * [ ] Convert lektor format to pyvideo data
+  * [x] Convert lektor format to pyvideo data
 * Editor:
   * [x] Edit events
   * [x] Edit videos

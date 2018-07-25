@@ -11,4 +11,4 @@ Related links:
 * PyVideo data: https://github.com/pyvideo/data
 * PyVideo static site generator (Pelican): https://github.com/pyvideo/pyvideo
 
-To navigate this web, while constructing, use the builtin editor.
+To navigate this web, while constructing, use the [builtin editor](http://127.0.0.1:5000/admin/root:events/preview).
