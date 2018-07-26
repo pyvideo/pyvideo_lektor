@@ -215,8 +215,11 @@ class Video:
         for field, value in self.data.items():
             if field in ['description', 'thumbnail_url', 'title', 'recorded',
                          'copyright_text', 'duration', 'language']:
-                string_data[field] = value
-                # TODO: description is rst must replace "^---" for "----"
+                if isinstance(value, str):
+                    string_data[field] = re.sub("^---", "----", value,
+                                                flags=re.MULTILINE)
+                else:
+                    string_data[field] = value
             elif field in ['speakers', 'tags']:
                 flow_text_data[field] = value
             elif field == 'videos':
@@ -345,6 +348,14 @@ class LektorContent(Repository):
                 other_data = pyaml.yaml.safe_load(lektor_data['others'])
                 lektor_data.update(other_data)
                 del lektor_data['others']
+
+            for field in ['description', 'thumbnail_url', 'title', 'recorded',
+                         'copyright_text', 'duration', 'language']:
+                if field in lektor_data and lektor_data[field]:
+                    if isinstance(lektor_data[field], str):
+                        lektor_data[field] = re.sub("^----", "---",
+                                                    lektor_data[field],
+                                                    flags=re.MULTILINE)
             return lektor_data
 
         main_data = _to_dict(text)
