@@ -28,7 +28,7 @@ curl -sf https://www.getlektor.com/install.sh | sh
 
 # Cloning the repos (Use yours here if you forked it).
 MY_GITHUB_USER=Daniel-at-github
-cd ~/git/  # Using ~/git/ as example to make it easier to understand.
+cd ~/git/
 git clone "git@github.com:$MY_GITHUB_USER/pyvideo_lektor.git"
 git clone "git@github.com:$MY_GITHUB_USER/data.git" pyvideo_data # More clear name in local, renamed as pyvideo_data
 
