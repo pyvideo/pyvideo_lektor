@@ -2,22 +2,20 @@
 
 Review and edit PyVideo.org data with a local copy in a lektor web instance
 
-## Work in progress
+## Work status
+
+Beta. Seems to work ok. Interface is spartan.
 
 Functionalities:
 
 * Conversion:
   * [x] Convert pyvideo data to lektor format
   * [x] Convert lektor format to pyvideo data
-* Editor:
-  * [x] Edit events
-  * [x] Edit videos
-  * [x] Navigate between events and videos in edit mode
-  * [x] List of events in view mode
-  * [x] Navigate between videos in view mode
-  * [x] Navigate from events to videos in view mode
-  * [ ] Fix dash titles bug
-  * [ ] Enhance the web appearance. (Not mandatory)
+* Editor (lektor local web):
+  * [x] Navigate from events to videos in edit and view mode
+  * [x] List of events and videos in view mode
+  * [x] Edit events and videos
+
 
 ## Usage
 
@@ -28,9 +26,9 @@ Convert pyvideo data to lektor
 # Installing lektor. See: https://www.getlektor.com/
 curl -sf https://www.getlektor.com/install.sh | sh
 
-# Cloning the repos
+# Cloning the repos (Use yours here if you forked it).
 MY_GITHUB_USER=Daniel-at-github
-cd ~/git/
+cd ~/git/  # Using ~/git/ as example to make it easier to understand.
 git clone "git@github.com:$MY_GITHUB_USER/pyvideo_lektor.git"
 git clone "git@github.com:$MY_GITHUB_USER/data.git" pyvideo_data # More clear name in local, renamed as pyvideo_data
 
