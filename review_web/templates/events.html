@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% from "macros/pagination.html" import render_pagination %}
+
+{% block title %}{{ this.title }}{% endblock %}
+{% block body %}
+  <h4>{{ this.title }}</h4>
+  {% if this.body %}
+    <p>{{ this.body }}</p>
+  {% endif %}
+
+  {% for child in this.pagination.items %}
+    <h4><a href="{{ child|url }}">{{ child.title }}</a></h4>
+  {% endfor %}
+
+  {% if this.pagination.pages > 1 %}
+    {{ render_pagination(this.pagination) }}
+  {% endif %}
+{% endblock %}

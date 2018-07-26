@@ -1,0 +1,6 @@
+{% set html_clock = '&#x23f1;' %}
+
+<a href="{{ this.url }}">{{ this.type }}</a>
+  {%- if this.length -%}
+    {{ html_clock | safe }} ({{ this.length }})s
+  {%- endif -%}

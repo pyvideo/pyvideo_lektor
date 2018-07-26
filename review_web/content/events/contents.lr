@@ -1,6 +1,9 @@
 title: Events
 ---
 body:
-
-To navigate this web, while constructing, use the builtin editor. http://127.0.0.1:5000/admin/root:events/preview
-
+---
+_discoverable: yes
+---
+_template: events.html
+---
+_model: event

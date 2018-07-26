@@ -10,7 +10,6 @@
 
   {% if from_index %}
     {# ======================= Event page view ======================= #}
-    <img class="thumbnail" src="{{ video.thumbnail_url }}" alt="">
 
     <h2><a href="{{ video|url }}">{{ video.title }}</a></h2>
     <span class="recorded">
@@ -25,7 +24,10 @@
               {% endfor %}
         {%- endif %}
     </span>
-
+    <p>
+    <img class="thumbnail" src="{{ video.thumbnail_url }}" alt="">
+    </p>
+    <hr>
   {% else %}
     {# ======================= Video page view ======================= #}
     <img class="thumbnail" src="{{ video.thumbnail_url }}" alt="">
