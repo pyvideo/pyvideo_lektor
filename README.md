@@ -2,9 +2,19 @@
 
 Review and edit PyVideo.org data with a local copy in a lektor web instance
 
+## Introduction
+
+Adding conferences to [PyVideo data](https://github.com/pyvideo/data) is a process rather painful. Data gathering is already covered in PyVideo tools, but data reviewing is what PyVideo Lektor is intended to ease.  
+With PyVideo Lektor you can:
+* Convert this new data to a Lektor project.
+* Then use Lektor to review the data builtin editor to:
+  * Review the data.
+  * Correct the data using Lektor built-in editor.
+* Convert the reviewed data back to PyVideo data format.
+
 ## Work status
 
-Beta. Seems to work ok. Interface is spartan.
+Beta. Seems to work OK. Interface is spartan.
 
 Functionalities:
 
