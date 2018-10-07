@@ -3,6 +3,7 @@
 """Copy pyvideo data in lektor format and vice versa"""
 
 import argparse
+import copy
 import json
 import logging
 import pathlib
@@ -344,6 +345,9 @@ class LektorContent(Repository):
                 if list_var in lektor_data:
                     if lektor_data[list_var] == "":
                         lektor_data[list_var] = []
+                    if list_var in ['tags', 'speakers']:
+                        data_copy = copy.deepcopy(lektor_data[list_var])
+                        lektor_data[list_var] = [item.strip() for item in data_copy]
             if 'others' in lektor_data:
                 other_data = pyaml.yaml.safe_load(lektor_data['others'])
                 lektor_data.update(other_data)
@@ -355,7 +359,7 @@ class LektorContent(Repository):
                     if isinstance(lektor_data[field], str):
                         lektor_data[field] = re.sub("^----", "---",
                                                     lektor_data[field],
-                                                    flags=re.MULTILINE)
+                                                    flags=re.MULTILINE).strip()
             return lektor_data
 
         main_data = _to_dict(text)
