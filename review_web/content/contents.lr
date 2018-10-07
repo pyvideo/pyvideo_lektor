@@ -4,6 +4,8 @@ body:
 
 This is a basic website to review and edit PyVideo.org data in a Lektor environment.
 
+To review the events use the link [Events](http://127.0.0.1:5000/events/) on the top.
+
 Related links:
 
 * PyVideo.org: http://pyvideo.org/
