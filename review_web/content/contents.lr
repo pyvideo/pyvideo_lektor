@@ -9,6 +9,6 @@ To review the events use the link [Events](http://127.0.0.1:5000/events/) on the
 Related links:
 
 * PyVideo.org: http://pyvideo.org/
-* PyVideo Lektor: https://github.com/Daniel-at-github/pyvideo_lektor
+* PyVideo Lektor: https://github.com/pyvideo/pyvideo_lektor
 * PyVideo data: https://github.com/pyvideo/data
 * PyVideo static site generator (Pelican): https://github.com/pyvideo/pyvideo
