@@ -360,8 +360,6 @@ class LektorContent(Repository):
                         lektor_data[field] = re.sub("^----", "---",
                                                     lektor_data[field],
                                                     flags=re.MULTILINE).strip()
-                    if field == 'description':
-                        lektor_data[field] += '\n'
             return lektor_data
 
         main_data = _to_dict(text)
